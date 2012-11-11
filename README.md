@@ -49,6 +49,7 @@ UI :
 * displayPrevious : default=false | true=displays the previous value with transparency.
 * fgColor : foreground color | default=#87CEEB
 * bgColor : background color | default=#EEEEEE
+* canvasBgColor : background color for the knob | default=false
 
 UI - ticks (_new_) :
 * ticks : displays ticks or not | default=false.
@@ -138,4 +139,5 @@ Credits
 -------
 
 Forked from aterrien (https://github.com/aterrien/jQuery-Knob - http://anthonyterrien.com/knob/)
+
 Thanks to eskimoblood (https://github.com/eskimoblood/jQuery-Knob)

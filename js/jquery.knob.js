@@ -97,6 +97,7 @@
                     displayInput : this.$.data('displayinput') == null || this.$.data('displayinput'),
                     displayPrevious : this.$.data('displayprevious'),
                     fgColor : this.$.data('fgcolor') || '#87CEEB',
+                    canvasBgColor : this.$.data('canvasbgcolor') || false,
                     inline : false,
 
                     // Hooks
@@ -611,6 +612,13 @@
                 , r = 1;
 
             c.lineWidth = this.lineWidth;
+
+            if (this.o.canvasBgColor !== false) {
+                c.beginPath();
+                    c.fillStyle = this.o.canvasBgColor;
+                    c.arc(this.xy, this.xy, this.radius, 0, 2*Math.PI, true);
+                c.fill();
+            }
 
             this.o.cursor
                 && (sat = eat - this.cursorExt)
