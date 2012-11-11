@@ -4,6 +4,7 @@ jQuery Knob
 - canvas based ; no png or jpg sprites.
 - touch, mouse and mousewheel, keyboard events implemented.
 - downward compatible ; overloads an input element.
+- nice ticks for various styling effects
 
 Example
 -------
@@ -46,8 +47,16 @@ UI :
 * width : dial width.
 * displayInput : default=true | false=hide input.
 * displayPrevious : default=false | true=displays the previous value with transparency.
-* fgColor : foreground color.
-* bgColor : background color.
+* fgColor : foreground color | default=#87CEEB
+* bgColor : background color | default=#EEEEEE
+
+UI - ticks (_new_) :
+* ticks : displays ticks or not | default=false.
+* tickLength : length of the ticks, consistent with the thickness of the gauge (if equal, the ticks take the full thickness of the gauge) | default=80% of thickness
+* tickWidth : width of the ticks | default=0.02
+* tickColor : Default tick color | default=#CCCCCC
+* tickFgColor : Default foreground tick color | default=#0088CC
+
 
 Hooks
 -------
@@ -123,3 +132,10 @@ Supported browser
 -------
 
 Tested on Chrome, Safari, Firefox, IE 9.0.
+
+
+Credits
+-------
+
+Forked from aterrien (https://github.com/aterrien/jQuery-Knob - http://anthonyterrien.com/knob/)
+Thanks to eskimoblood (https://github.com/eskimoblood/jQuery-Knob)
