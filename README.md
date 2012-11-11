@@ -51,7 +51,7 @@ UI :
 * bgColor : background color | default=#EEEEEE
 * canvasBgColor : background color for the knob | default=false
 
-UI - ticks (_new_) :
+UI - ticks ( _new_ ) :
 * ticks : displays ticks or not | default=false.
 * tickLength : length of the ticks, consistent with the thickness of the gauge (if equal, the ticks take the full thickness of the gauge) | default=80% of thickness
 * tickWidth : width of the ticks | default=0.02
