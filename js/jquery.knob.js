@@ -644,7 +644,7 @@
 
                 var halfPi = .5 * Math.PI,
                     twoPi = halfPi * 4,
-                    step = twoPi / this.o.ticks;
+                    step = this.angleArc / this.o.ticks;
 
                 c.lineWidth = this.tickLength;
 
