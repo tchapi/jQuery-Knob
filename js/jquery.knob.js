@@ -103,7 +103,14 @@
                     draw : null, // function () {}
                     change : null, // function (value) {}
                     cancel : null, // function () {}
-                    release : null // function (value) {}
+                    release : null, // function (value) {}
+
+                    // Ticks
+                    ticks : this.$.data('ticks') || 0,
+                    tickColor : this.$.data('tickcolor') || '#ccc',
+                    tickLength : this.$.data('ticklength') || this.$.data('thickness')*0.8 || 0.25,
+                    tickWidth : this.$.data('tickwidth') || 0.01,
+                    tickFgColor : this.$.data('tickfgcolor') || '#08c',
                 }, this.o
             );
 
@@ -540,6 +547,7 @@
             this.cursorExt = this.o.cursor / 100;
             this.xy = this.w2;
             this.lineWidth = this.xy * this.o.thickness;
+            this.tickLength = this.xy * this.o.tickLength;
             this.radius = this.xy - this.lineWidth / 2;
 
             this.o.angleOffset
@@ -631,6 +639,33 @@
                 c.strokeStyle = r ? this.o.fgColor : this.fgColor ;
                 c.arc(this.xy, this.xy, this.radius, sat, eat, false);
             c.stroke();
+
+            if (this.o.ticks != 0){
+
+                var halfPi = .5 * Math.PI,
+                    twoPi = halfPi * 4,
+                    step = twoPi / this.o.ticks;
+
+                c.lineWidth = this.tickLength;
+
+                for(var tick = 0; tick < this.o.ticks; tick++) {
+
+                    var tick_sa = step * tick;
+
+                    if (tick_sa > this.angleArc) continue;
+                    
+                    c.beginPath();
+
+                    if (sat + tick_sa < eat) {
+                        c.strokeStyle = this.o.tickFgColor;
+                    } else {
+                        c.strokeStyle = this.o.tickColor;
+                    }
+
+                    c.arc(this.xy, this.xy, this.radius, sat + tick_sa, sat + tick_sa + this.o.tickWidth, false);
+                    c.stroke();
+                }
+            }
         };
 
         this.cancel = function () {
