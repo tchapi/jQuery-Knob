@@ -93,10 +93,12 @@
                                 || 0,
                     thickness : this.$.data('thickness') || 0.35,
                     width : this.$.data('width') || 200,
-                    height : this.$.data('height') || 200,
+                    height : this.$.data('height') || this.$.data('width') || 200,
                     displayInput : this.$.data('displayinput') == null || this.$.data('displayinput'),
                     displayPrevious : this.$.data('displayprevious'),
                     fgColor : this.$.data('fgcolor') || '#87CEEB',
+                    shadow : this.$.data('shadow') || 0,
+                    shadowColor : this.$.data('shadowcolor') || 'rgba(0,0,0,0.5)',
                     canvasBgColor : this.$.data('canvasbgcolor') || false,
                     inline : false,
 
@@ -153,15 +155,17 @@
 
             (!this.o.displayInput) && this.$.hide();
 
+            this.realSize = { width: this.o.width + this.o.shadow, height: this.o.height + this.o.shadow };
+
             this.$c = $('<canvas width="' +
-                            this.o.width + 'px" height="' +
-                            this.o.height + 'px"></canvas>');
+                            this.realSize.width + 'px" height="' +
+                            this.realSize.height + 'px"></canvas>');
             this.c = this.$c[0].getContext("2d");
 
             this.$
                 .wrap($('<div style="' + (this.o.inline ? 'display:inline;' : '') +
-                        'width:' + this.o.width + 'px;height:' +
-                        this.o.height + 'px;"></div>'))
+                        'width:' + this.realSize.width + 'px;height:' +
+                        this.realSize.height + 'px;"></div>'))
                 .before(this.$c);
 
             if (this.v instanceof Object) {
@@ -194,8 +198,8 @@
             var d = true,
                 c = document.createElement('canvas');
 
-            c.width = s.o.width;
-            c.height = s.o.height;
+            c.width = s.o.width + s.o.shadow;
+            c.height = s.o.height + s.o.shadow;
             s.g = c.getContext('2d');
 
             s.clear();
@@ -431,8 +435,8 @@
             var a, ret;
 
             a = Math.atan2(
-                        x - (this.x + this.w2)
-                        , - (y - this.y - this.w2)
+                        x - (this.x + this.xy)
+                        , - (y - this.y - this.xy)
                     ) - this.angleOffset;
 
             if(this.angleArc != this.PI2 && (a < 0) && (a > -0.5)) {
@@ -546,10 +550,10 @@
             this.$.val(this.v);
             this.w2 = this.o.width / 2;
             this.cursorExt = this.o.cursor / 100;
-            this.xy = this.w2;
-            this.lineWidth = this.xy * this.o.thickness;
-            this.tickLength = this.xy * this.o.tickLength;
-            this.radius = this.xy - this.lineWidth / 2;
+            this.xy = this.realSize.width / 2;
+            this.lineWidth = this.w2 * this.o.thickness;
+            this.tickLength = this.w2 * this.o.tickLength;
+            this.radius = this.w2 - this.lineWidth / 2;
 
             this.o.angleOffset
             && (this.o.angleOffset = isNaN(this.o.angleOffset) ? 0 : this.o.angleOffset);
@@ -573,15 +577,15 @@
 
             this.o.displayInput
                 && this.i.css({
-                        'width' : ((this.o.width / 2 + 4) >> 0) + 'px'
-                        ,'height' : ((this.o.width / 3) >> 0) + 'px'
+                        'width' : ((this.realSize.width / 2 + 4) >> 0) + 'px'
+                        ,'height' : ((this.realSize.width / 3) >> 0) + 'px'
                         ,'position' : 'absolute'
                         ,'vertical-align' : 'middle'
-                        ,'margin-top' : ((this.o.width / 3) >> 0) + 'px'
-                        ,'margin-left' : '-' + ((this.o.width * 3 / 4 + 2) >> 0) + 'px'
+                        ,'margin-top' : ((this.realSize.width / 3) >> 0) + 'px'
+                        ,'margin-left' : '-' + ((this.realSize.width * 3 / 4 + 2) >> 0) + 'px'
                         ,'border' : 0
                         ,'background' : 'none'
-                        ,'font' : 'bold ' + ((this.o.width / s) >> 0) + 'px Arial'
+                        ,'font' : 'bold ' + ((this.realSize.width / s) >> 0) + 'px Arial'
                         ,'text-align' : 'center'
                         ,'color' : this.o.fgColor
                         ,'padding' : '0px'
@@ -611,12 +615,18 @@
                 , sa, ea                    // Previous angles
                 , r = 1;
 
+            var halfPi = .5 * Math.PI,
+                twoPi = halfPi * 4;
+
             c.lineWidth = this.lineWidth;
+
+            c.shadowBlur  = this.o.shadow;
+            c.shadowColor = this.o.shadowColor;
 
             if (this.o.canvasBgColor !== false) {
                 c.beginPath();
                     c.fillStyle = this.o.canvasBgColor;
-                    c.arc(this.xy, this.xy, this.radius, 0, 2*Math.PI, true);
+                    c.arc(this.xy, this.xy, this.radius, 0, twoPi, true);
                 c.fill();
             }
 
@@ -650,9 +660,7 @@
 
             if (this.o.ticks != 0){
 
-                var halfPi = .5 * Math.PI,
-                    twoPi = halfPi * 4,
-                    step = this.angleArc / this.o.ticks;
+                var step = this.angleArc / this.o.ticks;
 
                 c.lineWidth = this.tickLength;
 

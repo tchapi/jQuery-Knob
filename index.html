@@ -198,6 +198,37 @@
             <input class="knob" data-min="-15000" data-max="15000" value="-11000">
         </div>
         <div style="clear:both"></div>
+        <div class="demo">
+            <p>&#215; Angle offset with shadow</p>
+            <pre>
+    data-angleOffset=90
+    data-shadow=10
+            </pre>
+            <input class="knob" data-angleOffset=90 data-shadow=10 value="35">
+        </div>
+        <div class="demo">
+            <p>&#215; Angle offset and arc</p>
+            <pre>
+    data-fgColor="#66CC66"
+    data-angleOffset=-125
+    data-shadow=30
+    data-angleArc=250
+            </pre>
+            <input class="knob" data-angleOffset=-125 data-angleArc=250 data-shadow=30 data-fgColor="#66EE66" value="35">
+        </div>
+        <div class="demo" >
+            <p>&#215; Ticks and shadow</p>
+            <pre>
+    data-min="-150"
+    data-max="150"
+    data-shadow=20
+    data-ticks=20
+    data-tickWidth=0.05
+    data-tickLength=0.05
+            </pre>
+            <input class="knob" data-min="-150" data-max="150" data-shadow=20 data-tickLength=0.05 data-tickWidth=0.05 data-ticks=20 value="-10">
+        </div>
+        <div style="clear:both"></div>
         <div style="text-align: center">
             <p style="font-size: 20px">&#215; Overloaded 'draw' method</p>
         </div>
@@ -247,12 +278,12 @@ data-readOnly=true
             <p>&#215; Dynamic</p>
             <pre>
 data-width="200"
+data-cursor=true
             </pre>
             <input type="button" onclick="$('.knob-dyn').knob();" value="knobify!">
             <input type="text" class="knob-dyn" data-width="200" data-cursor=true value="56">
             <pre>
 data-width="50"
-data-cursor=true
             </pre>
             <input type="button" onclick="$('.knob-dyn2').knob();" value="knobify!">
             <input type="text" class="knob-dyn2" data-width="50" data-thickness=".4" value="56">
