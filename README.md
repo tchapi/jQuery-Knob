@@ -5,6 +5,7 @@ jQuery Knob
 - touch, mouse and mousewheel, keyboard events implemented.
 - downward compatible ; overloads an input element.
 - nice ticks for various styling effects
+- shadow effect for the knob
 
 Example
 -------
@@ -45,6 +46,7 @@ UI :
 * cursor : display mode "cursor" | default=gauge.
 * thickness : gauge thickness.
 * width : dial width.
+* height : dial height | default=[same as width].
 * displayInput : default=true | false=hide input.
 * displayPrevious : default=false | true=displays the previous value with transparency.
 * fgColor : foreground color | default=#87CEEB
@@ -58,6 +60,9 @@ UI - ticks ( _new_ ) :
 * tickColor : Default tick color | default=#CCCCCC
 * tickFgColor : Default foreground tick color | default=#0088CC
 
+UI - shadow ( _new_ ) :
+* shadow : amount of blur of the shadow effet | default=0 (no shadow at all)
+* shadowColor : color of the shadow | default=rgba(0,0,0,0.5)
 
 Hooks
 -------
