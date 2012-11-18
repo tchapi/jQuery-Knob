@@ -6,10 +6,12 @@ jQuery Knob
 - downward compatible ; overloads an input element.
 - nice ticks for various styling effects
 - shadow effect for the knob
+- gradients
 
 Example
 -------
 
+```html
     <input type="text" value="75" class="dial">
 
     <script>
@@ -17,20 +19,25 @@ Example
         $(".dial").knob();
     }
     </script>
+```
 
 Options
 -------
 
 Options are provided as attributes 'data-option':
 
+```html
     <input type="text" class="dial" data-min="-50" data-max="50">
+```
 
 ... or in the "knob()" call :
 
+```javascript
     $(".dial").knob({
                     'min':-50
                     ,'max':50
                     })
+```
 
 The following options are supported :
 
@@ -64,14 +71,33 @@ UI - shadow ( _new_ ) :
 * shadow : amount of blur of the shadow effet | default=0 (no shadow at all)
 * shadowColor : color of the shadow | default=rgba(0,0,0,0.5)
 
+Gradients
+-------
+
+To make the foreground color a gradient, just pass an array of colors and color stops as the fgColor parameter as per below :
+
+```html
+    <script>
+    $(".dial").knob({
+                        'fgColor' : ['0', '#5FAAC1', '0.5', '#0000FF', '1', '#FFFFFF']
+                    });
+    </script>
+```
+
+> NB : Adding a gradient can only be done programmatically.
+
+As it is a linear gradient form, it works well with half-circles dials.
+
 Hooks
 -------
 
+```html
     <script>
     $(".dial").knob({
                         'release' : function (v) { /*make something*/ }
                     });
     </script>
+```
 
 * 'release' : executed on release
 
@@ -99,6 +125,7 @@ The scope (this) of each hook function is the current Knob instance (refer to th
 Example
 -------
 
+```html
     <input type="text" value="75" class="dial">
 
     <script>
@@ -106,11 +133,12 @@ Example
                      'change' : function (v) { console.log(v); }
                     });
     </script>
-
+```
 
 Dynamically configure
 -------
 
+```html
     <script>
     $('.dial')
         .trigger(
@@ -124,15 +152,18 @@ Dynamically configure
             }
         );
     </script>
+```
 
 Set the value
 -------
 
+```html
     <script>
     $('.dial')
         .val(27)
         .trigger('change');
     </script>
+```
 
 Supported browser
 -------
